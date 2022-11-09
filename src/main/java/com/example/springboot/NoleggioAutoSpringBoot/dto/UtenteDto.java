@@ -1,8 +1,10 @@
 package com.example.springboot.NoleggioAutoSpringBoot.dto;
 
-import java.time.LocalDate;
-import java.util.Set;
+import lombok.Data;
 
+import java.time.LocalDate;
+
+@Data
 public class UtenteDto {
 
     private Long id;
@@ -21,5 +23,5 @@ public class UtenteDto {
 
     private String email;
 
-    private Set<PrenotazioneDto> prenotazioni;
+
 }

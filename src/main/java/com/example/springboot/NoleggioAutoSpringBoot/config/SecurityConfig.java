@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+/*
     private static final String[] ADMIN_UTENTI_MATCHER =
             {
                     "/utente/aggiungi_utente**",
@@ -44,21 +44,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/prenotazione/prenota_auto**",
             };
 
-
+*/
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/**").permitAll()
+                /*.antMatchers("/resources/**").permitAll()
                 .antMatchers("/index/**").permitAll()
                 .antMatchers(ADMIN_AUTO_MATCHER).access("hasRole('ADMIN')")
                 .antMatchers(ADMIN_UTENTI_MATCHER).access("hasRole('ADMIN')")
                 .antMatchers(ADMIN_PRENOTAZIONI_MATCHER).access("hasRole('ADMIN')")
                 .antMatchers(USER_UTENTI_MATCHER).access("hasRole('USER')")
-                .antMatchers(USER_PRENOTAZIONI_MATCHER).access("hasRole('USER')");
+                .antMatchers(USER_PRENOTAZIONI_MATCHER).access("hasRole('USER')")*/;
     }
 
 }

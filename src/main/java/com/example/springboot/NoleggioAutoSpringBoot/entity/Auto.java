@@ -7,10 +7,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "auto")
+@Table(name = "veicolo")
 @Data
 public class Auto implements Serializable {
 
@@ -43,4 +44,17 @@ public class Auto implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE,  mappedBy = "auto")
     @JsonManagedReference
     private Set<Prenotazione> prenotazioni;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Auto auto = (Auto) o;
+        return id.equals(auto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

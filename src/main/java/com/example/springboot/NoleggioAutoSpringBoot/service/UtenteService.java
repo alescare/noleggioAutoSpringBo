@@ -1,27 +1,22 @@
 package com.example.springboot.NoleggioAutoSpringBoot.service;
 
-import com.example.springboot.NoleggioAutoSpringBoot.entity.Utente;
-import org.springframework.stereotype.Service;
+import com.example.springboot.NoleggioAutoSpringBoot.dto.UtenteDto;
 
-import java.util.Optional;
+import java.util.List;
 
-@Service
+
 public interface UtenteService {
 
-    public void salvaOAggiornaUtente(Utente utente);
+     void salvaOAggiornaUtente(UtenteDto utenteDto);
 
-    public Utente cercaUtentePerCredenziali(String email, String password);
-
-    public Utente cercaUtentePerUsername(String username);
+     UtenteDto cercaUtentePerUsername(String username);
 
 
-    public Iterable<Utente> listaUtenti();
+     List<UtenteDto> listaUtenti();
 
 
-    public Optional<Utente> cercaUtentePerId(Long id);
+     UtenteDto cercaUtentePerId(Long id);
 
 
-    public void cancellaUtente(Utente utente);
-
-    public void cancellaUtentePerId(Long id);
+     void cancellaUtentePerId(Long id);
 }

@@ -1,12 +1,13 @@
 package com.example.springboot.NoleggioAutoSpringBoot.repository;
 
 import com.example.springboot.NoleggioAutoSpringBoot.entity.Auto;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
-public interface AutoRepository extends CrudRepository<Auto, Long> {
+public interface AutoRepository extends JpaRepository<Auto, Long> {
 
-   public List<Auto> listaAutoDisponibiliNelPeriodo(LocalDate dataInizio, LocalDate dataFine);
+    List<Auto> findAllByIdNotIn(List<Long> idList);
+
 }

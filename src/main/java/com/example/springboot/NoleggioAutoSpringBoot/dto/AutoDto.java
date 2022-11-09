@@ -2,8 +2,6 @@ package com.example.springboot.NoleggioAutoSpringBoot.dto;
 
 import lombok.Data;
 
-import java.util.Set;
-
 @Data
 public class AutoDto {
 
@@ -19,5 +17,5 @@ public class AutoDto {
 
     private String tipologia;
 
-    private Set<PrenotazioneDto> prenotazioni;
+
 }

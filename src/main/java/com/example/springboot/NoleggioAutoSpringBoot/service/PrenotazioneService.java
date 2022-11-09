@@ -1,30 +1,25 @@
 package com.example.springboot.NoleggioAutoSpringBoot.service;
 
-import com.example.springboot.NoleggioAutoSpringBoot.entity.Prenotazione;
-import com.example.springboot.NoleggioAutoSpringBoot.entity.Utente;
-import org.springframework.stereotype.Service;
+import com.example.springboot.NoleggioAutoSpringBoot.dto.PrenotazioneDto;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
-@Service
+
 public interface PrenotazioneService {
 
-    public void salvaOAggiornaPrenotazione(Prenotazione prenotazione);
+     void salvaOAggiornaPrenotazione(PrenotazioneDto prenotazioneDto);
 
-    public Iterable<Prenotazione> getPrenotazioni();
+     List<PrenotazioneDto> listaPrenotazioni();
 
-    public Optional<Prenotazione> getPrenotazione(Long id);
+     List<PrenotazioneDto> prenotazioniDaApprovare();
 
-    public List<Prenotazione> getPrenotazioniDaApprovare();
+     List<PrenotazioneDto> prenotazioniUtente(Long Idutente);
 
-    public List<Prenotazione> getPrenotazioniUtente(Utente utente);
-
-    public boolean prenotazioneInCorsoUtente(Utente utente);
-
-    public void cancellaPrenotazione(Prenotazione prenotazione);
+     boolean prenotazioneInCorsoUtente(Long idUtente);
 
 
-    public List<Prenotazione> getListaPrenotazioniNelPeriodo(LocalDate dataInizioPeriodo, LocalDate dataFinePeriodo);
+    void cancellaPrenotazionePerId(Long id);
+
+    List<Long> getListaIdAutoOccupate(LocalDate dataInizio, LocalDate dataFine);
 }

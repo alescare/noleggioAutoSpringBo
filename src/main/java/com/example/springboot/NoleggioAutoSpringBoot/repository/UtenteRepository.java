@@ -1,13 +1,13 @@
 package com.example.springboot.NoleggioAutoSpringBoot.repository;
 
+import com.example.springboot.NoleggioAutoSpringBoot.entity.Prenotazione;
 import com.example.springboot.NoleggioAutoSpringBoot.entity.Utente;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UtenteRepository extends CrudRepository<Utente, Long> {
+import java.util.List;
 
+public interface UtenteRepository extends JpaRepository<Utente, Long> {
 
-    //public Utente cercaUtentePerCredenziali(String email, String password);
-
-    Utente cercaUtentePerUsername(String username);
+    Utente findByUsername(String username);
 
 }

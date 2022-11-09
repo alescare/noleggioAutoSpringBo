@@ -27,18 +27,18 @@ public class Prenotazione implements Serializable {
     @Past(message = "{Past.Prenotazione.dataFine.validation}")
     private LocalDate dataFine;
 
+    @Column(name = "approvata")
+    private boolean approvata;
+
     @ManyToOne
     @JoinColumn(name = "utente")
     @EqualsAndHashCode.Exclude
     @JsonBackReference
     private Utente utente;
 
-    @Column(name = "approvata")
-    private boolean approvata;
-
 
     @ManyToOne
-    @JoinColumn(name = "auto", nullable = true)
+    @JoinColumn(name = "auto")
     @EqualsAndHashCode.Exclude
     @JsonBackReference
     private Auto auto;

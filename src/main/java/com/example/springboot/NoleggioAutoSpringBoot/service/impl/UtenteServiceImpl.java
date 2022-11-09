@@ -1,47 +1,52 @@
 package com.example.springboot.NoleggioAutoSpringBoot.service.impl;
 
+import com.example.springboot.NoleggioAutoSpringBoot.dto.UtenteDto;
 import com.example.springboot.NoleggioAutoSpringBoot.entity.Utente;
 import com.example.springboot.NoleggioAutoSpringBoot.repository.UtenteRepository;
 import com.example.springboot.NoleggioAutoSpringBoot.service.UtenteService;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.LinkedList;
+import java.util.List;
 
+@Service
+@Transactional
 public class UtenteServiceImpl implements UtenteService {
 
     private final UtenteRepository utenteRepository;
+    private final ModelMapper modelMapper;
 
-    public UtenteServiceImpl(UtenteRepository utenteRepository) {
+    public UtenteServiceImpl(UtenteRepository utenteRepository, ModelMapper modelMapper) {
         this.utenteRepository = utenteRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public void salvaOAggiornaUtente(Utente utente) {
+    public void salvaOAggiornaUtente(UtenteDto utenteDto) {
+        Utente utente = this.modelMapper.map(utenteDto, Utente.class);
+        if(utenteDto.getId() != null) {
+           utente.setPrenotazioni(this.utenteRepository.findById(utenteDto.getId()).get().getPrenotazioni());
+        }
         this.utenteRepository.save(utente);
     }
 
     @Override
-    public Utente cercaUtentePerCredenziali(String email, String password) {
-        return null;
+    public UtenteDto cercaUtentePerUsername(String username) {
+        return modelMapper.map(this.utenteRepository.findByUsername(username), UtenteDto.class);
     }
 
     @Override
-    public Utente cercaUtentePerUsername(String username) {
-        return this.utenteRepository.cercaUtentePerUsername(username);
+    public List<UtenteDto> listaUtenti() {
+        List<UtenteDto> listaUtenti = new LinkedList<>();
+        this.utenteRepository.findAll().forEach(utente -> listaUtenti.add(modelMapper.map(utente, UtenteDto.class)));
+        return listaUtenti;
     }
 
     @Override
-    public Iterable<Utente> listaUtenti() {
-        return this.utenteRepository.findAll();
-    }
-
-    @Override
-    public Optional<Utente> cercaUtentePerId(Long id) {
-        return this.utenteRepository.findById(id);
-    }
-
-    @Override
-    public void cancellaUtente(Utente utente) {
-        this.utenteRepository.delete(utente);
+    public UtenteDto cercaUtentePerId(Long id) {
+        return modelMapper.map(this.utenteRepository.findById(id).get(), UtenteDto.class);
     }
 
     @Override
