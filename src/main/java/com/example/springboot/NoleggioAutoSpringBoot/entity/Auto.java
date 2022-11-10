@@ -1,5 +1,6 @@
 package com.example.springboot.NoleggioAutoSpringBoot.entity;
 
+import com.example.springboot.NoleggioAutoSpringBoot.dto.AutoDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -57,4 +58,5 @@ public class Auto implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

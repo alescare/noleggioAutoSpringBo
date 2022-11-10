@@ -5,6 +5,7 @@ import com.example.springboot.NoleggioAutoSpringBoot.entity.Utente;
 import com.example.springboot.NoleggioAutoSpringBoot.repository.UtenteRepository;
 import com.example.springboot.NoleggioAutoSpringBoot.service.UtenteService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,17 +19,30 @@ public class UtenteServiceImpl implements UtenteService {
     private final UtenteRepository utenteRepository;
     private final ModelMapper modelMapper;
 
-    public UtenteServiceImpl(UtenteRepository utenteRepository, ModelMapper modelMapper) {
+    public final PasswordEncoder passwordEncoder;
+
+    public UtenteServiceImpl(UtenteRepository utenteRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.utenteRepository = utenteRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void salvaOAggiornaUtente(UtenteDto utenteDto) {
+
         Utente utente = this.modelMapper.map(utenteDto, Utente.class);
-        if(utenteDto.getId() != null) {
-           utente.setPrenotazioni(this.utenteRepository.findById(utenteDto.getId()).get().getPrenotazioni());
+        boolean passwordDaCodificare = true;
+        if (utenteDto.getId() != null) {//modifica
+            Utente utenteOriginale = this.utenteRepository.findById(utenteDto.getId()).get();//serve per ottenere la password codificata corrente
+            utente.setPrenotazioni(utenteOriginale.getPrenotazioni());
+            if (utenteOriginale.getPassword().equals(utenteDto.getPassword())) {
+                passwordDaCodificare = false;//si controlla se lato frontend non sia stato popolato il campo password
+            }
         }
+        if (passwordDaCodificare) {
+            utente.setPassword(this.passwordEncoder.encode(utenteDto.getPassword()));
+        }
+
         this.utenteRepository.save(utente);
     }
 
