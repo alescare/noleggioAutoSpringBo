@@ -24,7 +24,7 @@ public class UtenteController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/cancella/{idUtente}")
+    @DeleteMapping(value = "/elimina/{idUtente}")
     public ResponseEntity cancellaUtente(@PathVariable("idUtente") Long idUtente) {
         this.utenteService.cancellaUtentePerId(idUtente);
         return new ResponseEntity(HttpStatus.OK);

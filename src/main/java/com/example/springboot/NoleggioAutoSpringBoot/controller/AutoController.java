@@ -38,8 +38,9 @@ public class AutoController {
     }
 
     @GetMapping(value = "/lista_auto_disponibili")
-    public ResponseEntity<List<AutoDto>> getListaAutoDisponibili(@DateTimeFormat(pattern="dd-MM-yyyy") @RequestParam("dataInizioPeriodo") LocalDate dataInizioPeriodo, @DateTimeFormat(pattern="dd-MM-yyyy") @RequestParam("dataFinePeriodo") LocalDate dataFinePeriodo) {
-        List<AutoDto> listaAuto = this.autoService.listaAutoDisponibiliNelPeriodo(dataInizioPeriodo, dataFinePeriodo);
+    public ResponseEntity<List<AutoDto>> getListaAutoDisponibili(@DateTimeFormat(pattern="dd-MM-yyyy") @RequestParam("dataInizioPeriodo") String dataInizioPeriodo, @DateTimeFormat(pattern="dd-MM-yyyy") @RequestParam("dataFinePeriodo") String dataFinePeriodo) {
+
+        List<AutoDto> listaAuto = this.autoService.listaAutoDisponibiliNelPeriodo(LocalDate.parse(dataInizioPeriodo), LocalDate.parse(dataFinePeriodo));
         return new ResponseEntity<>(listaAuto, HttpStatus.OK);
     }
 
